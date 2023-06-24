@@ -8,7 +8,7 @@ def say(text):
         speaker.Speak(text)
         break
 
-def takeCommand():l
+def takeCommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
         r.pause_threshold=1
@@ -17,4 +17,4 @@ def takeCommand():l
 
 if __name__ == '__main__':
     print('Pycharm')
-    say("Hello, I am Jarvis AI")
+    say("Hello, Jaagrit Created this Robot Project")
