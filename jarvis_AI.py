@@ -8,7 +8,7 @@ def say(text):
         speaker.Speak(text)
         break
 
-def takeCommand():
+def takeCommand():l
     r=sr.Recognizer()
     with sr.Microphone() as source:
         r.pause_threshold=1
