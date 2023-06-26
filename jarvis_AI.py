@@ -1,20 +1,109 @@
+import webbrowser
 import speech_recognition as sr
 import win32com.client
+import openai
+import os
+from playsound import playsound
+import datetime
+import pywhatkit as pwt
+
+
+# def chat(query):
+
 
 def say(text):
     speaker=win32com.client.Dispatch("SAPI.SpVoice")
-
     while 1:
         speaker.Speak(text)
         break
 
 def takeCommand():
-    r=sr.Recognizer()
+    r = sr.Recognizer()
     with sr.Microphone() as source:
-        r.pause_threshold=1
-
-
+        r.energy_threshold = 800
+        r.pause_threshold = 0.8
+        audio = r.listen(source)
+        try:
+            print("Recognizing..")
+            query = r.recognize_google(audio,language="en-iN")
+            print(f"User said: {query}")
+            return(query)
+        except Exception as e:
+            return("Some Error Occurred, Please Speak Again Sir..")
 
 if __name__ == '__main__':
-    print('Pycharm')
-    say("Hello, Jaagrit Created this Robot Project")
+    say("Hi, I am Jarvis")
+    while True:
+        print("Listening....")
+        query = takeCommand()
+        sites = [["youtube","https://www.youtube.com"],["wikipedia","https://www.wikipedia.com"],["google","https://www.google.com"]]
+        for site in sites:
+            if f"Open {site[0]}".lower() in query.lower():
+                say(f"Opening {site[0]} sir...")
+                webbrowser.open(site[1])
+
+
+            if "the time" in query:
+                strfTime = datetime.datetime.now().strftime("%H:%M:%S")
+                say(f"Sir the time is {strfTime}")
+                break
+
+            if "open camera" in query:
+                os.system(f"start microsoft.windows.camera:")
+                break
+
+            if "open calculator" in query:
+                os.system(f"start calc")
+                break
+
+            if "open Notepad" in query:
+                os.system(f"start notepad")
+                break
+
+            if "open MS Word" in query:
+                os.system(f"start winword")
+                break
+
+            if "open MS PowerPoint" in query:
+                os.system(f"start powerpnt")
+                break
+
+            if "open MS Excel" in query:
+                os.system(f"start excel")
+                break
+
+            if "play video" in query:
+                say("Which video you want to play Sir")
+                text = takeCommand()
+                pwt.playonyt(text)
+
+            if "search for me Jarvis" in query:
+                say("What do you want me to search Sir")
+                text = takeCommand()
+                pwt.search(text)
+                break
+
+            if "find information" in query:
+                say("What do you want me to find Sir")
+                info = takeCommand()
+                pwt.info(info)
+                break
+
+            if "send WhatsApp message for me" in query:
+                say("Tell me the number sir")
+                num =takeCommand()
+                pnum = f"+91{num}"
+                say("What message you want me to deliver sir")
+                typemsg= takeCommand()
+                pwt.sendwhatmsg(pnum,typemsg,11,15)
+                break
+
+
+
+            # todo:write code for AWS and openai
+            # else:
+            #     chat(query)
+
+        #say(query)
+
+
