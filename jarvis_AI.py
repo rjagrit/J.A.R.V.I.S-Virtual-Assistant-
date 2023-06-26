@@ -1,4 +1,6 @@
 import webbrowser
+
+import pyttsx3
 import speech_recognition as sr
 import win32com.client
 import openai
@@ -94,9 +96,28 @@ if __name__ == '__main__':
                 num =takeCommand()
                 pnum = f"+91{num}"
                 say("What message you want me to deliver sir")
-                typemsg= takeCommand()
-                pwt.sendwhatmsg(pnum,typemsg,11,15)
+                typemsg = takeCommand()
+                say("Sure sir, I will send but first Tell me the timing sir...")
+                say("On which hour should I send the message sir")
+                hour = takeCommand()
+                say("Tell me the minutes sir")
+                mins = takeCommand()
+                pwt.sendwhatmsg(pnum, typemsg, hour, mins)
+                say("Message send successfully")
                 break
+
+            # if "shutdown my lapi" in query:
+            #     pwt.shutdown(time=120)
+
+            if "convert image for me" in query:
+                pwt.image_to_ascii_art("C:\\Users\\Dell\\Downloads\\n.jpg","C:\\Users\\Dell\\Downloads\\n.txt")
+
+            # if "convert text for me" in query:
+            #     pyobj=pyttsx3.init()
+            #     pyobj.say("Welcome to python ")
+            #     pyobj.runAndWait()
+            #     break
+
 
 
 
