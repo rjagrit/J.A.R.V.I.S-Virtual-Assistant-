@@ -5,11 +5,22 @@ import speech_recognition as sr
 import win32com.client
 import openai
 import os
-from playsound import playsound
 import datetime
 import pywhatkit as pwt
+#from playsound import playsound
+import pyautogui
+from time import sleep
 
-
+# import os
+# from time import sleep
+# import webbrowser
+# from playsound import playsound
+# import pyautogui
+# import speech_recognition as sr
+# import win32com.client
+# import openai
+# import datetime
+# import pywhatkit as pwt
 # def chat(query):
 
 
@@ -44,87 +55,111 @@ if __name__ == '__main__':
                 say(f"Opening {site[0]} sir...")
                 webbrowser.open(site[1])
 
+        #--------Time Telling Automation-----------
+        if "the time" in query:
+            strfTime = datetime.datetime.now().strftime("%H:%M:%S")
+            say(f"Sir the time is {strfTime}")
+            break
 
-            if "the time" in query:
-                strfTime = datetime.datetime.now().strftime("%H:%M:%S")
-                say(f"Sir the time is {strfTime}")
-                break
+        #----------Camera Automation---------------
+        if "open camera" in query:
+            os.system(f"start microsoft.windows.camera:")
+            say("How many clicks you want me to do sir")
+            a=takeCommand()
+            num=int(a)
+            for b in range(num):
+                sleep(10)
+                pyautogui.click()
+            break
 
-            if "open camera" in query:
-                os.system(f"start microsoft.windows.camera:")
-                break
+        #---------Calculator automation-------------
+        if "open calculator" in query:
+            os.system(f"start calc")
+            break
 
-            if "open calculator" in query:
-                os.system(f"start calc")
-                break
+        #----------Notepad Automation----------------
+        if "open Notepad" in query:
+            os.system(f"start notepad")
+            break
 
-            if "open Notepad" in query:
-                os.system(f"start notepad")
-                break
+        #----------MS-Word Automation----------------
+        if "open MS Word" in query:
+            os.system(f"start winword")
+            break
 
-            if "open MS Word" in query:
-                os.system(f"start winword")
-                break
+        #----------MS-powerpoint Automation---------
+        if "open MS PowerPoint" in query:
+            os.system(f"start powerpnt")
+            break
 
-            if "open MS PowerPoint" in query:
-                os.system(f"start powerpnt")
-                break
+        #---------MS-Excel Automation---------
+        if "open MS Excel" in query:
+            os.system(f"start excel")
+            break
 
-            if "open MS Excel" in query:
-                os.system(f"start excel")
-                break
+        #---------playing video Automation-----
+        if "play video" in query:
+            say("Which video you want to play Sir")
+            text = takeCommand()
+            pwt.playonyt(text)
 
-            if "play video" in query:
-                say("Which video you want to play Sir")
-                text = takeCommand()
-                pwt.playonyt(text)
+        #--------Search Automation--------------
+        if "search for me Jarvis" in query:
+            say("What do you want me to search Sir")
+            text = takeCommand()
+            pwt.search(text)
+            break
 
-            if "search for me Jarvis" in query:
-                say("What do you want me to search Sir")
-                text = takeCommand()
-                pwt.search(text)
-                break
+        #---------particular information finding automation-----------
+        if "find information" in query:
+            say("What do you want me to find Sir")
+            info = takeCommand()
+            pwt.info(info)
+            break
 
-            if "find information" in query:
-                say("What do you want me to find Sir")
-                info = takeCommand()
-                pwt.info(info)
-                break
+        #----------WhatsApp Automation-------------------
+        if "send WhatsApp message for me" in query:
+            say("Tell me the number sir")
+            num =takeCommand()
+            pnum = f"+91{num}"
+            say("What message you want me to deliver sir")
+            typemsg = takeCommand()
+            say("Sure sir, I will send but first Tell me the timing sir...")
+            say("On which hour should I send the message sir")
+            hour = int(input("Enter Hour"))
+            say("Tell me the minutes sir")
+            mins = int(input("Enter Minutes"))
+            pwt.sendwhatmsg(pnum, typemsg,hour,mins)
+            say("Message send successfully")
+            break
+        #---------lapi shutdown Automation----------
+        # if "shutdown my lapi" in query:
+        #     pwt.shutdown(time=120)
 
-            if "send WhatsApp message for me" in query:
-                say("Tell me the number sir")
-                num =takeCommand()
-                pnum = f"+91{num}"
-                say("What message you want me to deliver sir")
-                typemsg = takeCommand()
-                say("Sure sir, I will send but first Tell me the timing sir...")
-                say("On which hour should I send the message sir")
-                hour = takeCommand()
-                say("Tell me the minutes sir")
-                mins = takeCommand()
-                pwt.sendwhatmsg(pnum, typemsg, hour, mins)
-                say("Message send successfully")
-                break
+        #----------Image-Conversion Automation---------
+        if "convert image for me" in query:
+            pwt.image_to_ascii_art("C:\\Users\\Dell\\Downloads\\n.jpg","C:\\Users\\Dell\\Downloads\\n.txt")
 
-            # if "shutdown my lapi" in query:
-            #     pwt.shutdown(time=120)
+        #--------Converting Text Automation--------
+        # if "convert text for me" in query:
+        #     pyobj=pyttsx3.init()
+        #     pyobj.say("Welcome to python ")
+        #     pyobj.runAndWait()
+        #     break
 
-            if "convert image for me" in query:
-                pwt.image_to_ascii_art("C:\\Users\\Dell\\Downloads\\n.jpg","C:\\Users\\Dell\\Downloads\\n.txt")
+        #------------Spotify Automation-------------------
+        if "play songs for me" in query:
+            say("sir what song you want")
+            song = takeCommand()
+            webbrowser.open(f"https://open.spotify.com/search/{song}")
+            sleep(20)
+            pyautogui.click()
+            say('playing' + song)
+            break
 
-            # if "convert text for me" in query:
-            #     pyobj=pyttsx3.init()
-            #     pyobj.say("Welcome to python ")
-            #     pyobj.runAndWait()
-            #     break
+        if "stop now" in query:
+            say("Alright Sir, Hope I satisfied with my work")
+            exit(0)
 
-
-
-
-            # todo:write code for AWS and openai
-            # else:
-            #     chat(query)
-
-        #say(query)
 
 
