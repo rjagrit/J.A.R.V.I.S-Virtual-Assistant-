@@ -1,35 +1,35 @@
 import webbrowser
-
+import googletrans
 import pyttsx3
+import speech_recognition
 import speech_recognition as sr
 import win32com.client
 import openai
 import os
 import datetime
 import pywhatkit as pwt
-#from playsound import playsound
+from playsound import playsound
 import pyautogui
 from time import sleep
+from googletrans import Translator
+import gtts
+from tkinter import *
 
-# import os
-# from time import sleep
-# import webbrowser
-# from playsound import playsound
-# import pyautogui
-# import speech_recognition as sr
-# import win32com.client
-# import openai
-# import datetime
-# import pywhatkit as pwt
-# def chat(query):
-
+Assistant= pyttsx3.init('sapi5')
+voices= Assistant.getProperty('voices')
+Assistant.setProperty('voices',voices[0].id)
 
 def say(text):
-    speaker=win32com.client.Dispatch("SAPI.SpVoice")
-    while 1:
-        speaker.Speak(text)
-        break
+    Assistant.say(text)
+    Assistant.runAndWait()
+def Dropmenu():
+    root= Tk()
+    root.title("Languages")
+    root.resizable(False,False)
+    options= StringVar()
+    options.set("afrikaans")
 
+    dropdown= OptionMenu(root,options,'afrikaans', 'albanian', 'amharic', 'arabic', 'armenian', 'azerbaijani', 'basque', 'belarusian', 'bengali', 'bosnian', 'bulgarian', 'catalan', 'cebuano', 'chichewa', 'chinese (simplified)', 'chinese (traditional)', 'corsican', 'croatian', 'czech', 'danish', 'dutch', 'english', 'esperanto', 'estonian', 'filipino', 'finnish', 'french', 'frisian', 'galician', 'georgian', 'german', 'greek', 'gujarati', 'haitian creole', 'hausa', 'hawaiian', 'hebrew', 'hebrew', 'hindi', 'hmong', 'hungarian', 'icelandic', 'igbo', 'indonesian', 'irish', 'italian', 'japanese', 'javanese', 'kannada', 'kazakh', 'khmer', 'korean', 'kurdish (kurmanji)', 'kyrgyz', 'lao', 'latin', 'latvian', 'lithuanian', 'luxembourgish', 'macedonian', 'malagasy', 'malay', 'malayalam', 'maltese', 'maori', 'marathi', 'mongolian', 'myanmar (burmese)', 'nepali', 'norwegian', 'odia', 'pashto', 'persian', 'polish', 'portuguese', 'punjabi', 'romanian', 'russian', 'samoan', 'scots gaelic', 'serbian', 'sesotho', 'shona', 'sindhi', 'sinhala', 'slovak', 'slovenian', 'somali', 'spanish', 'sundanese', 'swahili', 'swedish', 'tajik', 'tamil', 'telugu', 'thai', 'turkish', 'ukrainian', 'urdu', 'uyghur', 'uzbek', 'vietnamese', 'welsh', 'xhosa', 'yiddish', 'yoruba', 'zulu').pack()
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -140,12 +140,6 @@ if __name__ == '__main__':
         if "convert image for me" in query:
             pwt.image_to_ascii_art("C:\\Users\\Dell\\Downloads\\n.jpg","C:\\Users\\Dell\\Downloads\\n.txt")
 
-        #--------Converting Text Automation--------
-        # if "convert text for me" in query:
-        #     pyobj=pyttsx3.init()
-        #     pyobj.say("Welcome to python ")
-        #     pyobj.runAndWait()
-        #     break
 
         #------------Spotify Automation-------------------
         if "play songs for me" in query:
@@ -156,6 +150,21 @@ if __name__ == '__main__':
             pyautogui.click()
             say('playing' + song)
             break
+
+        #----------Language Translator automation------------
+        if "translate for me" in query:
+            say("Speak Now Sir")
+            text=takeCommand()
+            trans1= Translator()
+            say("Now Choose the language sir..")
+
+            trans2= trans1.translate(text,dest="hi")
+            Text= trans2.text
+            print(Text)
+            convertAudio= gtts.gTTS(trans2.text,lang="hi")
+            convertAudio.save("audiofile.mp3")
+            playsound("audiofile.mp3")
+
 
         if "stop now" in query:
             say("Alright Sir, Hope I satisfied with my work")
