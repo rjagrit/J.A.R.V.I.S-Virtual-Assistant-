@@ -14,6 +14,17 @@ from time import sleep
 from googletrans import Translator
 import gtts
 from tkinter import *
+from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5.QtGui import QMovie
+# module for moving gif
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.uic import loadUiType
+import time
+import webbrowser
+
 
 Assistant= pyttsx3.init('sapi5')
 voices= Assistant.getProperty('voices')
@@ -30,6 +41,7 @@ def Dropmenu():
     options.set("afrikaans")
 
     dropdown= OptionMenu(root,options,'afrikaans', 'albanian', 'amharic', 'arabic', 'armenian', 'azerbaijani', 'basque', 'belarusian', 'bengali', 'bosnian', 'bulgarian', 'catalan', 'cebuano', 'chichewa', 'chinese (simplified)', 'chinese (traditional)', 'corsican', 'croatian', 'czech', 'danish', 'dutch', 'english', 'esperanto', 'estonian', 'filipino', 'finnish', 'french', 'frisian', 'galician', 'georgian', 'german', 'greek', 'gujarati', 'haitian creole', 'hausa', 'hawaiian', 'hebrew', 'hebrew', 'hindi', 'hmong', 'hungarian', 'icelandic', 'igbo', 'indonesian', 'irish', 'italian', 'japanese', 'javanese', 'kannada', 'kazakh', 'khmer', 'korean', 'kurdish (kurmanji)', 'kyrgyz', 'lao', 'latin', 'latvian', 'lithuanian', 'luxembourgish', 'macedonian', 'malagasy', 'malay', 'malayalam', 'maltese', 'maori', 'marathi', 'mongolian', 'myanmar (burmese)', 'nepali', 'norwegian', 'odia', 'pashto', 'persian', 'polish', 'portuguese', 'punjabi', 'romanian', 'russian', 'samoan', 'scots gaelic', 'serbian', 'sesotho', 'shona', 'sindhi', 'sinhala', 'slovak', 'slovenian', 'somali', 'spanish', 'sundanese', 'swahili', 'swedish', 'tajik', 'tamil', 'telugu', 'thai', 'turkish', 'ukrainian', 'urdu', 'uyghur', 'uzbek', 'vietnamese', 'welsh', 'xhosa', 'yiddish', 'yoruba', 'zulu').pack()
+
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -44,6 +56,47 @@ def takeCommand():
         except Exception as e:
             return("Some Error Occurred, Please Speak Again Sir..")
 
+def ChooseLang():
+    root = Tk()
+    root.title("Languages")
+    lang = ['afrikaans', 'albanian', 'amharic', 'arabic', 'armenian', 'azerbaijani', 'basque',
+            'belarusian', 'bengali', 'bosnian', 'bulgarian', 'catalan', 'cebuano', 'chichewa',
+            'chinese (simplified)', 'chinese (traditional)', 'corsican', 'croatian', 'czech', 'danish',
+            'dutch', 'english', 'esperanto', 'estonian', 'filipino', 'finnish', 'french', 'frisian',
+            'galician', 'georgian', 'german', 'greek', 'gujarati', 'haitian creole', 'hausa', 'hawaiian',
+            'hebrew', 'hebrew', 'hindi', 'hmong', 'hungarian', 'icelandic', 'igbo', 'indonesian', 'irish',
+            'italian', 'japanese', 'javanese', 'kannada', 'kazakh', 'khmer', 'korean', 'kurdish (kurmanji)',
+            'kyrgyz', 'lao', 'latin', 'latvian', 'lithuanian', 'luxembourgish', 'macedonian', 'malagasy',
+            'malay', 'malayalam', 'maltese', 'maori', 'marathi', 'mongolian', 'myanmar (burmese)', 'nepali',
+            'norwegian', 'odia', 'pashto', 'persian', 'polish', 'portuguese', 'punjabi', 'romanian',
+            'russian', 'samoan', 'scots gaelic', 'serbian', 'sesotho', 'shona', 'sindhi', 'sinhala', 'slovak',
+            'slovenian', 'somali', 'spanish', 'sundanese', 'swahili', 'swedish', 'tajik', 'tamil', 'telugu',
+            'thai', 'turkish', 'ukrainian', 'urdu', 'uyghur', 'uzbek', 'vietnamese', 'welsh', 'xhosa',
+            'yiddish', 'yoruba', 'zulu']
+    root.geometry("400x400")
+    options = StringVar(root)
+    options.set("Choose")
+    dropdown = OptionMenu(root, options, *lang).pack(pady=50)
+
+    def close():
+        root.destroy()
+
+    buttons = Button(root, command=close, text='Press Okay to Confirm!').pack(pady=100)
+    root.mainloop()
+    your_value = options.get()
+    kys = googletrans.LANGUAGES
+    for my_key, my_value in kys.items():
+        if my_value == your_value:
+            l = my_key
+    trans2 = trans1.translate(text, dest=l)
+    Text = trans2.text
+    convertAudio = gtts.gTTS(trans2.text, lang=l)
+    convertAudio.save("audiofile.mp3")
+    playsound("audiofile.mp3")
+    say("Language Translated Sir, Your Translated Text appeear on your Screen Sir")
+    print(Text)
+
+
 if __name__ == '__main__':
     say("Hi, I am Jarvis")
     while True:
@@ -54,6 +107,7 @@ if __name__ == '__main__':
             if f"Open {site[0]}".lower() in query.lower():
                 say(f"Opening {site[0]} sir...")
                 webbrowser.open(site[1])
+
 
         #--------Time Telling Automation-----------
         if "the time" in query:
@@ -151,24 +205,22 @@ if __name__ == '__main__':
             say('playing' + song)
             break
 
+
         #----------Language Translator automation------------
         if "translate for me" in query:
             say("Speak Now Sir")
             text=takeCommand()
             trans1= Translator()
             say("Now Choose the language sir..")
-
-            trans2= trans1.translate(text,dest="hi")
-            Text= trans2.text
-            print(Text)
-            convertAudio= gtts.gTTS(trans2.text,lang="hi")
-            convertAudio.save("audiofile.mp3")
-            playsound("audiofile.mp3")
+            ChooseLang()
 
 
         if "stop now" in query:
             say("Alright Sir, Hope I satisfied with my work")
             exit(0)
+
+
+
 
 
 
