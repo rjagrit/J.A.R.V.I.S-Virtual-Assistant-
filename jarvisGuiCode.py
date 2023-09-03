@@ -1,5 +1,5 @@
 import sys
-
+from subprocess import call
 from jarvis import Ui_Form
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import *
@@ -14,7 +14,7 @@ class MainThread(QThread):
     def __init__(self):
         super(MainThread,self).__init__()
     def run(self):
-        jarvis_AI.takeCommand()
+        call(["python","jarvis_AI.py"])
 
 # class for moving GIF
 startExe= MainThread()
