@@ -32,14 +32,23 @@ class Gui_Start(QMainWindow):
         self.gui.label1= QtGui.QMovie("GIF//giphy.gif")
         self.gui.label.setMovie(self.gui.label1)
         self.gui.label1.start()
-        # self.gui.label_1= QtGui.QMovie("GIF/giphy.gif")
-        # for moving gif
-        # self.gui.label.setMovie(self.gui.label_1)
-        # self.gui.label_1.start()
 
+
+        timer= QTimer(self)
+        timer.timeout.connect(self.showTimeLive)
+        timer.start(999)
         startExe.start()
 
-    # def show(self):
+    def showTimeLive(self):
+        t_ime= QTime.currentTime()
+        time= t_ime.toString()
+        d_ate= QDate.currentDate()
+        date= d_ate.toString()
+        label_time= time
+        label_date= date
+        self.gui.Textime.setText(label_time)
+        self.gui.Textdate.setText(label_date)
+
 
 
 GuiApp= QApplication(sys.argv)

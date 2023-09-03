@@ -39,21 +39,31 @@ class Ui_Form(object):
 "font-size:25px;")
         self.pushButton_2.setObjectName("pushButton_2")
         self.Textime = QtWidgets.QTextBrowser(Form)
-        self.Textime.setGeometry(QtCore.QRect(200, 260, 201, 41))
+        self.Textime.setGeometry(QtCore.QRect(230, 260, 181, 41))
         self.Textime.setStyleSheet("background:Transparent;\n"
 "border:1px solid black;\n"
+"color:white;\n"
+"font-size:25px;\n"
+"\n"
 "")
         self.Textime.setObjectName("Textime")
         self.Textemp = QtWidgets.QTextBrowser(Form)
         self.Textemp.setGeometry(QtCore.QRect(0, 10, 81, 41))
         self.Textemp.setStyleSheet("background:Transparent;\n"
 "border:1px solid black;\n"
+"color:white;\n"
+"font-size:20px;\n"
+"text-align:center;\n"
+"\n"
 "")
         self.Textemp.setObjectName("Textemp")
         self.Textdate = QtWidgets.QTextBrowser(Form)
-        self.Textdate.setGeometry(QtCore.QRect(390, 10, 201, 41))
+        self.Textdate.setGeometry(QtCore.QRect(390, 10, 211, 41))
         self.Textdate.setStyleSheet("background:Transparent;\n"
 "border:1px solid black;\n"
+"color:white;\n"
+"font-size:20px;\n"
+"text-align:center;\n"
 "")
         self.Textdate.setObjectName("Textdate")
 
@@ -65,7 +75,7 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "START"))
         self.pushButton_2.setText(_translate("Form", "EXIT"))
-
+# import rec_rc
 
 
 if __name__ == "__main__":

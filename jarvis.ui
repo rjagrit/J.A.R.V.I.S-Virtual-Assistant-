@@ -78,15 +78,18 @@ font-size:25px;</string>
   <widget class="QTextBrowser" name="Textime">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>230</x>
      <y>260</y>
-     <width>201</width>
+     <width>181</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background:Transparent;
 border:1px solid black;
+color:white;
+font-size:25px;
+
 </string>
    </property>
   </widget>
@@ -102,6 +105,10 @@ border:1px solid black;
    <property name="styleSheet">
     <string notr="true">background:Transparent;
 border:1px solid black;
+color:white;
+font-size:20px;
+text-align:center;
+
 </string>
    </property>
   </widget>
@@ -110,13 +117,16 @@ border:1px solid black;
     <rect>
      <x>390</x>
      <y>10</y>
-     <width>201</width>
+     <width>211</width>
      <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background:Transparent;
 border:1px solid black;
+color:white;
+font-size:20px;
+text-align:center;
 </string>
    </property>
   </widget>
